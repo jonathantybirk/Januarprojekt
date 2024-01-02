@@ -11,7 +11,7 @@ class Player:
         self.id = id
 
         self.inputs = [0,0,0,0]
-        self.movement = [0,0]
+        self.movement = 0
 
     def control(self):
         if self.id == "1":
@@ -20,12 +20,13 @@ class Player:
             self.inputs = [pg.key.get_pressed()[pg.K_UP],pg.key.get_pressed()[pg.K_DOWN]]
 
         # up/down
-        if self.inputs[0] and not self.inputs[1] and self.pos[1] > -(squares[1] - 1) / 2 + 1: self.movement[1] = -1
-        elif not self.inputs[0] and self.inputs[1] and self.pos[1] < (squares[1] - 1) / 2 - 1: self.movement[1] = 1 
-        else: self.movement[1] = 0
+        if self.inputs[0] and not self.inputs[1]: self.movement = -1
+        elif not self.inputs[0] and self.inputs[1]: self.movement = 1 
+        else: self.movement = 0
 
-    def move(self,movement):
-        self.pos[1] += movement * self.speed
+    def move(self):
+        if self.pos[1] + self.movement * self.speed >= -(squares[1] - 1) / 2 + 1 and self.pos[1] + self.movement * self.speed <= (squares[1] - 1) / 2 - 1:
+            self.pos[1] += self.movement * self.speed
 
     def draw(self):   
         self.drawDimFactor = 50

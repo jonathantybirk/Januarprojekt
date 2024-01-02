@@ -16,14 +16,14 @@ while not EXIT:
 
     # Players
     for player in players:
-        player.control()
-        player.move(player.movement[1])
+        #player.control()
+        player.move()
         player.draw()
 
     # Ball
+    ball.lose()
     ball.collide()
     ball.move()
-    ball.lose()
     ball.draw()
 
     # Misc
