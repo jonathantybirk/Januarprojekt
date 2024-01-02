@@ -6,3 +6,8 @@ from ball import *
 # bold koordinater x og y: ball.pos[0], ball.pos[1]
 # bold hastighedsvektor x og y: ball.velocity[0], ball.velocity[1]
 
+# player 1 ryk op (True/False): players[0].inputs[0]
+# player 1 ryk ned (True/False): players[0].inputs[1]
+
+# player 2 ryk op (True/False): players[1].inputs[0]
+# player 2 ryk ned (True/False): players[1].inputs[1]
