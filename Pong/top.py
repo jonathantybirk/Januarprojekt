@@ -2,7 +2,7 @@ import pygame as pg
 import random as rand
 
 # Application
-squares = [15,13]
+squares = [17,13]
 squareSize = 50
 
 appDim = (squares[0] * squareSize, squares[1] * squareSize)

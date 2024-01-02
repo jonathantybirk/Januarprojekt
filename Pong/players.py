@@ -24,8 +24,8 @@ class Player:
         elif not self.inputs[0] and self.inputs[1] and self.pos[1] < (squares[1] - 1) / 2 - 1: self.movement[1] = 1 
         else: self.movement[1] = 0
 
-    def move(self):
-        self.pos[1] += self.movement[1] * self.speed
+    def move(self,movement):
+        self.pos[1] += movement * self.speed
 
     def draw(self):   
         self.drawDimFactor = 50

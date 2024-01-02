@@ -1,4 +1,4 @@
-from ball import *
+from ai import *
 
 # LOOP
 while not EXIT:
@@ -17,7 +17,7 @@ while not EXIT:
     # Players
     for player in players:
         player.control()
-        player.move()
+        player.move(player.movement[1])
         player.draw()
 
     # Ball
@@ -28,4 +28,4 @@ while not EXIT:
 
     # Misc
     pg.display.update()
-    pg.time.Clock().tick(30)
+    pg.time.Clock().tick(5)

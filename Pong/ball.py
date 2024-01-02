@@ -2,7 +2,7 @@ from players import *
 
 class Ball:
     def __init__(self):
-        self.speed = 0.5
+        self.speed = 1
         self.pos = [0,0]
         self.velocity = [rand.choice([-1,1]),rand.choice([-1,0,1])]
 
@@ -15,8 +15,10 @@ class Ball:
 
     def collide(self):
         # Bounds
-        if self.pos[1] == -(squares[1] - 1) / 2 or self.pos[1] == (squares[1] - 1) / 2:
-            self.velocity[1] *= -1
+        if self.pos[1] <= -(squares[1] - 1) / 2:
+            self.velocity[1] = 1
+        if self.pos[1] >= (squares[1] - 1) / 2:
+            self.velocity[1] = -1
 
         # player 1
         if self.pos[0] <= players[0].pos[0] and self.pos[1] >= players[0].pos[1] - (players[0].dim[1] - 1) / 2 and self.pos[1] <= players[0].pos[1] + (players[0].dim[1] - 1) / 2:
@@ -59,7 +61,7 @@ class Ball:
         self.drawPosFactor = 50
 
         self.drawDim = [self.dim[0] * self.drawDimFactor - self.drawDimSubtraction, self.dim[1] * self.drawDimFactor - self.drawDimSubtraction]
-        self.drawPos = [round(self.pos[0]) * self.drawPosFactor + appDim[0] / 2 - self.drawDim[0] / 2, round(self.pos[1]) * self.drawPosFactor + appDim[1] / 2 - self.drawDim[1] / 2]
+        self.drawPos = [self.pos[0] * self.drawPosFactor + appDim[0] / 2 - self.drawDim[0] / 2, self.pos[1] * self.drawPosFactor + appDim[1] / 2 - self.drawDim[1] / 2]
         pg.draw.rect(app,self.color,[self.drawPos[0],self.drawPos[1],self.drawDim[0],self.drawDim[1]])
 
     def updateScore(self,amount):
