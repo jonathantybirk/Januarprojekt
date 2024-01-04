@@ -1,29 +1,49 @@
 from ai import *
 
 # LOOP
-while not EXIT:
-    # Input
-    keys = pg.key.get_pressed()
+steps = 0
+def step():
+    global steps
+    steps += 1
+    # paddles
+    paddle1.move()
+    paddle2.move()
 
+    # Ball
+    ball.collide()
+    ball.move()
+
+    # Game
+    checkLoss(ball,paddle1,paddle2,AI1,AI2)
+
+while not EXIT:
     # Exit
     for event in pg.event.get():
-        if event.type == pg.QUIT or keys[pg.K_ESCAPE]:
+        if event.type == pg.QUIT or pg.key.get_pressed()[pg.K_ESCAPE]:
             EXIT = True
+
+    # AIs log state
+    AI1.getState()
+    AI2.getState()
+
+    # Get NN to provide action or take random action
+    paddle1.movement = AI1.getAction()
+    paddle2.movement = AI2.getAction()
+
+    # Step to next tick
+    step()
+
+    # AIs update log
+    AI1.updateLog(0)
+    AI2.updateLog(0)
 
     # Draw background (and clear screen)
     app.fill(backgroundColor)
     drawGrid()
 
-    # Players
-    for player in players:
-        #player.control()
-        player.move()
-        player.draw()
-
-    # Ball
-    ball.lose()
-    ball.collide()
-    ball.move()
+    # paddles and ball
+    paddle1.draw()
+    paddle2.draw()
     ball.draw()
 
     # Misc
