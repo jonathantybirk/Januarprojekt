@@ -3,8 +3,8 @@ from paddles import *
 class Ball:
     def __init__(self):
         self.speed = 1
-        self.pos = [0,0]
-        self.velocity = [rand.choice([-1,1]),rand.choice([-1,1])]
+        self.pos = [0.0,0.0]
+        self.velocity = [random.choice([-1.0,1.0]),random.choice([-1.0,1.0])]
 
         self.color = (255,255,255)
         self.dim = [1,1]
@@ -45,8 +45,8 @@ class Ball:
         self.pos[1] += self.velocity[1] * self.speed
 
     def reset(self):
-            self.pos = [0,0]
-            self.velocity = [rand.choice([-1,1]),rand.choice([-1,0,1])]
+            self.pos = [0.0,0.0]
+            self.velocity = [random.choice([-1.0,1.0]),random.choice([-1.0,0.0,1.0])]
 
     def draw(self):
         self.drawDimFactor = 50

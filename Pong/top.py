@@ -1,6 +1,11 @@
 import pygame as pg
-import random as rand
+import random
+import torch
+from collections import deque
 
+#A seed for easy reproduction Oo
+random.seed(1)
+torch.manual_seed(1)
 # Application
 squares = [19,13]
 squareSize = 50
@@ -47,16 +52,11 @@ def checkLoss(ball,paddle1,paddle2,AI1,AI2):
         ball.reset()
         updateScore("add",0)
 
-        AI1.isTerminal = True
-        AI2.isTerminal = True
+        AI1.isTerminal = 1
+        AI2.isTerminal = 1
 
-        return True
     else:
-        AI1.isTerminal = False
-        AI2.isTerminal = False
+        AI1.isTerminal = 0
+        AI2.isTerminal = 0
 
-        return False
-
-
-def step():
-    pass
+steps = 0

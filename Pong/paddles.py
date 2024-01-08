@@ -10,8 +10,7 @@ class Paddle:
         self.pos = list(position)
         self.id = id
 
-        self.inputs = [0,0,0,0]
-        self.movement = 0
+        self.movement = 0.0
 
     def control(self):
         if self.id == "1":
@@ -20,8 +19,8 @@ class Paddle:
             self.inputs = [pg.key.get_pressed()[pg.K_UP],pg.key.get_pressed()[pg.K_DOWN]]
 
         # up/down
-        if self.inputs[0] and not self.inputs[1]: self.movement = -1
-        elif not self.inputs[0] and self.inputs[1]: self.movement = 1 
+        if self.inputs[0] and not self.inputs[1]: self.movement = -1.0
+        elif not self.inputs[0] and self.inputs[1]: self.movement = 1.0
         else: self.movement = 0
 
     def move(self):
