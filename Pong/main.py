@@ -24,7 +24,7 @@ while not EXIT:
             AI1.saveWeights()
             AI2.saveWeights()
 
-    # AIs log state
+    # AIs load state
     AI1.loadState()
     AI2.loadState()
 
@@ -49,11 +49,17 @@ while not EXIT:
     paddle2.draw()
     ball.draw()
 
-    AI1.updateWeights()
-    AI2.updateWeights()
+    if steps % 100 == 0:
+        AI1.updateWeights()
+        AI2.updateWeights()
+        print(f"step {steps}: Weights updated, epsilon: {AI1.epsilon}")
 
-    print(AI1.epsilon)
+        if steps % 100000 == 0:
+            AI1.saveWeights()
+            AI2.saveWeights()
+            print("Weights saved")
 
     # Misc
-    pg.display.update()
-    pg.time.Clock().tick(10)
+    if pg.key.get_pressed()[pg.K_k]:
+        pg.display.update()
+        pg.time.Clock().tick(10)

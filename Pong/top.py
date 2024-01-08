@@ -4,8 +4,8 @@ import torch
 from collections import deque
 
 #A seed for easy reproduction Oo
-random.seed(1)
-torch.manual_seed(1)
+#random.seed(1)
+#torch.manual_seed(1)
 # Application
 squares = [19,13]
 squareSize = 50
@@ -33,24 +33,28 @@ def drawGrid():
         pg.draw.rect(app, color,[0,y - width / 2, appDim[0], width])
 
 # Game
-score = 0
-def updateScore(mode,amount):
-    global score
+scores = {"1": 0, "2": 0}
+totalScores = {"1": 0, "2": 0}
+
+def updateScore(id,mode,amount):
+    global scores
+    global totalScores
+
     if mode == "set":
-        score = amount
+        scores[id] = amount
     elif mode == "add":
-        score += amount
+        scores[id] += amount
+        totalScores[id] += amount
     elif mode == "get":
-        return score
-        
-    #print(f"score: {score}")
+        return scores[id]
 
 def checkLoss(ball,paddle1,paddle2,AI1,AI2):
     if ball.pos[0] <= -(squares[0] - 1) / 2 or ball.pos[0] >= (squares[0] - 1) / 2:
         paddle1.reset()
         paddle2.reset()
         ball.reset()
-        updateScore("add",0)
+        updateScore("1","set",0)
+        updateScore("2","set",0)
 
         AI1.isTerminal = 1
         AI2.isTerminal = 1

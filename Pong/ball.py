@@ -27,7 +27,7 @@ class Ball:
             elif self.pos[1] == paddle1.pos[1]:
                 self.velocity = [1, 0]
             self.pos[0] = paddle1.pos[0] + 1
-            updateScore("add",1)
+            updateScore("1", "add", 1)
 
         # paddle 2
         if self.pos[0] >= paddle2.pos[0] and self.pos[1] >= paddle2.pos[1] - (paddle2.dim[1] - 1) / 2 and self.pos[1] <= paddle2.pos[1] + (paddle2.dim[1] - 1) / 2:
@@ -38,7 +38,7 @@ class Ball:
             elif self.pos[1] == paddle2.pos[1]:
                 self.velocity = [-1, 0]
             self.pos[0] = paddle2.pos[0] - 1
-            updateScore("add",1)
+            updateScore("2", "add", 1)
 
     def move(self):
         self.pos[0] += self.velocity[0] * self.speed

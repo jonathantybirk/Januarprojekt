@@ -10,7 +10,7 @@ class Paddle:
         self.pos = list(position)
         self.id = id
 
-        self.movement = 0.0
+        self.movement = 0.
 
     def control(self):
         if self.id == "1":
@@ -24,7 +24,7 @@ class Paddle:
         else: self.movement = 0
 
     def move(self):
-        if self.pos[1] + self.movement * self.speed >= -(squares[1] - 1) / 2 + 1 and self.pos[1] + self.movement * self.speed <= (squares[1] - 1) / 2 - 1:
+        if self.pos[1] + self.movement * self.speed >= -(squares[1] - 1.0) / 2.0+ 1.0 and self.pos[1] + self.movement * self.speed <= (squares[1] - 1) / 2 - 1:
             self.pos[1] += self.movement * self.speed
 
     def draw(self):   
