@@ -16,13 +16,11 @@ class Player():
         elif not self.inputs[0] and self.inputs[1]: return 1.0
         else: return 0.0
 
-    def updateScore(self,mode,amount = 0):
+    def updateScore(self,mode,amount):
         if mode == "set":
             self.score = amount
         elif mode == "add":
             self.score += amount
-        elif mode == "get":
-            return self.score
 
         
 

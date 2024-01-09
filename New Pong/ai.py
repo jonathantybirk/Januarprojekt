@@ -2,8 +2,8 @@ from ball import *
 
 ## Variables
 learning_rate=1e-4
-N,D_in,H,D_out=32,6,100,3
-gamma=0.9
+N,D_in,H,D_out=32,6,200,3
+gamma=0.999
 lr=.01
 
 # Define model
@@ -25,10 +25,10 @@ loss_fn = torch.nn.MSELoss(reduction='sum')
 
 # Define model
 model=Model()
+
 class AI:
     def __init__(self,id):
         self.rows = 100
-        self.discount = 0.99
 
         self.id = id
         self.entry = []
@@ -41,8 +41,8 @@ class AI:
 
         #Randomness factor
         self.epsilon = 1.0
-        self.epsilon_decay = 0.000001
-        self.minimum_epsilon = 0.1
+        self.epsilon_decay = 0.0000001
+        self.minimum_epsilon = 0.2
 
         #AI score
 
@@ -50,14 +50,14 @@ class AI:
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=learning_rate)
 
         self.weightPath = f"New Pong/Models/Alpha{self.id}.pt"
-        
+
     def loadState(self):
         self.state = [paddle1.pos[1], paddle2.pos[1], ball.pos[0], ball.pos[1], ball.velocity[0], ball.velocity[1]]
-        self.totalReward = self.players[self.id].updateScore("get")
+        self.totalReward = self.players[self.id].score
 
     def updateBatch(self,action):
         self.newState = [paddle1.pos[1], paddle2.pos[1], ball.pos[0], ball.pos[1], ball.velocity[0], ball.velocity[1]]
-        self.newTotalReward = self.players[self.id].updateScore("get")
+        self.newTotalReward = self.players[self.id].score
         self.reward = self.newTotalReward - self.totalReward
         self.entry = [self.state[0],self.state[1],self.state[2],self.state[3],self.state[4],self.state[5],action,self.reward,
                       self.newState[0],self.newState[1],self.newState[2],self.newState[3],self.newState[4],self.newState[5],self.isTerminal]

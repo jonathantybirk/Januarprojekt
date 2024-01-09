@@ -9,11 +9,10 @@ def step():
     paddle2.move()
 
     # Ball½
-    ball.collideBounds()
+    ball.collideBounds(AI1,AI2)
     ball.collidePaddles()
     ball.move()
 
-#AI1.getBatch()
 while not EXIT:
     # Exit
     for event in pg.event.get():
@@ -49,12 +48,12 @@ while not EXIT:
     paddle2.draw()
     ball.draw()
 
-    if steps % 100 == 0:
+    if steps % 1000 == 0:
         AI1.updateWeights()
         AI2.updateWeights()
         print(f"step {steps}: Weights updated, epsilon: {AI1.epsilon}")
 
-        if steps % 10000 == 0:
+        if steps % 100000 == 0:
             AI1.saveWeights()
             AI2.saveWeights()
             print("Weights saved")
@@ -81,3 +80,5 @@ while not EXIT:
             ball.reset()
     else:
         rPressed = False
+
+    print(AI1.isTerminal, AI2.isTerminal)

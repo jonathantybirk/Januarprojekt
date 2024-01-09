@@ -23,8 +23,6 @@ EXIT = False
 # Visual
 
 # Game
-scores = {"1": 0, "2": 0}
-totalScores = {"1": 0, "2": 0}
 steps = 0
 
 
