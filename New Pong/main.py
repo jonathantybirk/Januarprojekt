@@ -51,13 +51,13 @@ while not EXIT:
     ## Track score
     if AI.isTerminal:
         terminalCount += 1
-        if terminalCount % 10 == 0:
-            currentScore = [player1.score - lastTotalScore[0], player2.score - lastTotalScore[1]]
-            
+
+        currentScore = [player1.score - lastTotalScore[0], player2.score - lastTotalScore[1]]
+        lastTotalScore = [player1.score, player2.score]
+
+        if terminalCount % 1000 == 0:
             with open(f"New Pong/Models/{modelName}/stats.csv", "a", newline="") as file:
                 csv.writer(file).writerow([steps,terminalCount,currentScore])
-
-            lastTotalScore = [player1.score, player2.score]
 
     # AIs update Batch
     if not testMode:
@@ -71,9 +71,6 @@ while not EXIT:
     paddle1.draw()
     paddle2.draw()
     ball.draw()
-
-    # print(AI1.state)
-
     
 
     # Update and save weights

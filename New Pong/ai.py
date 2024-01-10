@@ -41,9 +41,9 @@ class AI:
         self.paddles = {"1": paddle1, "2": paddle2}
 
         #Randomness factor
-        self.epsilon = 1.0
-        self.epsilon_decay = 0.000001
-        self.minimum_epsilon = 0.1
+        self.epsilon = 0.99
+        self.epsilon_decay = 0.0000001
+        self.minimum_epsilon = 0.2
 
         self.model = Model()
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=learning_rate)
@@ -102,11 +102,12 @@ class AI:
             actions=minibatch[:,6].long()
             modelOutput_states = self.model(states)
 
-            y_expected = modelOutput_states[np.arange(N),actions.reshape(1,N)]            
+            y_pred = modelOutput_states[np.arange(N),actions.reshape(1,N)]            
             with torch.no_grad():
-                y_true = rewards + gamma * (torch.max(model(newStates),dim=1).values.reshape(N,1)*(torch.ones(N,1)-TerminalCheck))
+                newStatesQuality = (torch.max(model(newStates),dim=1).values * (1 - TerminalCheck)).unsqueeze(0)
+                y_true = rewards + gamma * newStatesQuality
                 
-            loss = loss_fn(y_expected,y_true)
+            loss = loss_fn(y_pred,y_true)
 
             # update weights
             self.optimizer.zero_grad()
