@@ -2,9 +2,8 @@ from paddles import *
 
 class Ball:
     def __init__(self):
-        self.initSpeed = 3
+        self.initSpeed = 10.
         self.speedUp = 0.1
-        self.maxSpeed = 15
         self.initPos = [0,0]
 
         self.color = (255,255,255)
@@ -16,7 +15,7 @@ class Ball:
         self.velocity = [0,0]
         self.reset()
 
-    def collideBounds(self,AI1,AI2):
+    def collideBounds(self,AI):
         # Bounds
         # ceiling/floor
         if self.pos[1] - self.dim[1] / 2 <= -appDim[1] / 2:
@@ -32,20 +31,17 @@ class Ball:
             paddle2.reset()
             self.reset()
 
-            AI1.isTerminal = 1
-            AI2.isTerminal = 1
+            AI.isTerminal = 1
 
         elif self.pos[0] > appDim[0] / 2:
             paddle1.reset()
             paddle2.reset()
             self.reset()
 
-            AI1.isTerminal = 1
-            AI2.isTerminal = 1
+            AI.isTerminal = 1
         
         else:
-            AI1.isTerminal = 0
-            AI2.isTerminal = 0
+            AI.isTerminal = 0
 
 
     def collidePaddles(self):
@@ -58,7 +54,7 @@ class Ball:
                 collisionAngle = (math.pi / 3) * (self.pos[1] - paddle1.pos[1]) / ((Paddle.dim[1] + self.dim[1]) / 2)
                 self.direction = [math.cos(collisionAngle), math.sin(collisionAngle)]
                 
-                self.speed = min(self.speed + self.speedUp, self.maxSpeed)
+                self.speed += self.speedUp
                 player1.updateScore("add", 1)
 
         # Right paddle
@@ -70,7 +66,7 @@ class Ball:
                 collisionAngle = (math.pi / 3) * (self.pos[1] - paddle2.pos[1]) / ((Paddle.dim[1] + self.dim[1]) / 2)
                 self.direction = [-math.cos(collisionAngle), math.sin(collisionAngle)]
                 
-                self.speed = min(self.speed + self.speedUp, self.maxSpeed)
+                self.speed += self.speedUp
                 player2.updateScore("add", 1)
 
     def move(self):

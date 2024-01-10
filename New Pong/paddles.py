@@ -3,10 +3,9 @@ from players import *
 
 
 class Paddle:
-    speed = 5
+    speed = 20
     dim = [10,100]
     def __init__(self,position,id,color):
-        self.speed = 5
         self.color = color
 
         self.pos = [0,0]

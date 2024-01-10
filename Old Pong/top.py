@@ -67,4 +67,4 @@ steps = 0
 
 # keyboard shit
 kPressed = False
-rendering = False
+rendering = True

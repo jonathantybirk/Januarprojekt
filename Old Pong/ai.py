@@ -38,10 +38,10 @@ class AI:
 
         self.paddles = {"1": paddle1, "2": paddle2}
 
-        self.weightPath = f"Old Pong/Models/Charlie{self.id}.pt"
+        self.weightPath = f"Old Pong/Models/Beta{self.id}.pt"
 
         #Randomness factor
-        self.epsilon = 1
+        self.epsilon = 0
         self.epsilon_decay = 0.000001
         self.minimum_epsilon = 0.1
 

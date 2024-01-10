@@ -3,7 +3,7 @@ from ball import *
 ## Variables
 learning_rate=1e-4
 N,D_in,H,D_out=32,6,200,3
-gamma=0.9
+gamma=0.99
 lr=.01
 
 # Define model
@@ -26,37 +26,37 @@ loss_fn = torch.nn.MSELoss(reduction='sum')
 # Define model
 model=Model()
 
+modelName = "Alpha"
+
 class AI:
+    isTerminal = 0
     def __init__(self,id):
-        self.rows = 100
 
         self.id = id
         self.entry = []
         self.batch = deque(maxlen = 100000)
         self.batchSize = 0
-        self.isTerminal = 0
 
         self.players = {"1": player1, "2": player2}
         self.paddles = {"1": paddle1, "2": paddle2}
 
         #Randomness factor
         self.epsilon = 1.0
-        self.epsilon_decay = 0.0001
+        self.epsilon_decay = 0.000001
         self.minimum_epsilon = 0.1
-
-        #AI score
 
         self.model = Model()
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=learning_rate)
 
-        self.weightPath = f"New Pong/Models/Alpha{self.id}.pt"
+
+        self.weightPath = f"New Pong/Models/{modelName}/{self.id}.pt"
 
     def loadState(self):
-        self.state = [paddle1.pos[1], paddle2.pos[1], ball.pos[0], ball.pos[1], ball.velocity[0], ball.velocity[1]]
+        self.state = [paddle1.pos[1] / (appDim[1] / 2), paddle2.pos[1] / (appDim[1] / 2), ball.pos[0] / (appDim[0] / 2), ball.pos[1] / (appDim[1] / 2), ball.velocity[0] / (appDim[0] / 2), ball.velocity[1] / (appDim[1] / 2)]
         self.totalReward = self.players[self.id].score
 
     def updateBatch(self,action):
-        self.newState = [paddle1.pos[1], paddle2.pos[1], ball.pos[0], ball.pos[1], ball.velocity[0], ball.velocity[1]]
+        self.newState = [paddle1.pos[1] / (appDim[1] / 2), paddle2.pos[1] / (appDim[1] / 2), ball.pos[0] / (appDim[0] / 2), ball.pos[1] / (appDim[1] / 2), ball.velocity[0] / (appDim[0] / 2), ball.velocity[1] / (appDim[1] / 2)]
         self.newTotalReward = self.players[self.id].score
         self.reward = self.newTotalReward - self.totalReward
         self.entry = [self.state[0],self.state[1],self.state[2],self.state[3],self.state[4],self.state[5],action,self.reward,
@@ -93,7 +93,7 @@ class AI:
         }, self.weightPath)
         
     def updateWeights(self):
-        if self.batchSize > 32:
+        if self.batchSize > N:
             minibatch = torch.tensor(random.sample(self.batch,N))
             states = minibatch[:,0:6]
             newStates = minibatch[:,8:14]
@@ -107,6 +107,8 @@ class AI:
                 y_true = rewards + gamma * (torch.max(model(newStates),dim=1).values.reshape(N,1)*(torch.ones(N,1)-TerminalCheck))
                 
             loss = loss_fn(y_expected,y_true)
+
+            # update weights
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
