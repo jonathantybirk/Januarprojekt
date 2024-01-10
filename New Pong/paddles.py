@@ -32,5 +32,5 @@ class Paddle:
         self.pos[0] = self.initPos[0]
         self.pos[1] = self.initPos[1]
 
-paddle1 = Paddle([-appDim[0] / 2 + Paddle.dim[0] / 2 + 10, 0], "1", (231, 83, 71))
-paddle2 = Paddle([appDim[0] / 2 - Paddle.dim[0] / 2 - 10, 0], "2", (73, 225, 71))
+paddle1 = Paddle([-appDim[0] / 2 + Paddle.dim[0] / 2 + 10.0, 0.0], "1", (231, 83, 71))
+paddle2 = Paddle([appDim[0] / 2 - Paddle.dim[0] / 2 - 10.0, 0.0], "2", (73, 225, 71))

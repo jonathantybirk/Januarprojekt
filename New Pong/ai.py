@@ -3,7 +3,7 @@ from ball import *
 ## Variables
 learning_rate=1e-4
 N,D_in,H,D_out=32,6,200,3
-gamma=0.999
+gamma=0.9
 lr=.01
 
 # Define model
@@ -32,7 +32,7 @@ class AI:
 
         self.id = id
         self.entry = []
-        self.batch = deque(maxlen = 10000)
+        self.batch = deque(maxlen = 100000)
         self.batchSize = 0
         self.isTerminal = 0
 
@@ -41,8 +41,8 @@ class AI:
 
         #Randomness factor
         self.epsilon = 1.0
-        self.epsilon_decay = 0.0000001
-        self.minimum_epsilon = 0.2
+        self.epsilon_decay = 0.0001
+        self.minimum_epsilon = 0.1
 
         #AI score
 
@@ -61,17 +61,18 @@ class AI:
         self.reward = self.newTotalReward - self.totalReward
         self.entry = [self.state[0],self.state[1],self.state[2],self.state[3],self.state[4],self.state[5],action,self.reward,
                       self.newState[0],self.newState[1],self.newState[2],self.newState[3],self.newState[4],self.newState[5],self.isTerminal]
-        
+
         self.batch.append(self.entry)
         self.batchSize += 1
 
     def getAction(self):
-        sample=random.uniform(0,1)
         if self.epsilon > self.minimum_epsilon:
             self.epsilon -= self.epsilon_decay
 
-        if sample < self.epsilon:
+        if random.uniform(0,1) < self.epsilon:
+
             return random.sample([-1,0,1],1)[0]
+        
         else:
             modelInput = torch.tensor(self.state)
 
