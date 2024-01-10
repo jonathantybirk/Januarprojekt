@@ -42,7 +42,7 @@ def controlAndReset(k,r,ball,paddle1,paddle2,steps):
         
     if doRender:
         pg.display.update()
-        pg.time.Clock().tick(10)
+        pg.time.Clock().tick(40)
 
     # Reset?
     if r:

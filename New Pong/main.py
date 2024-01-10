@@ -2,6 +2,15 @@ from ai import *
 AI1.loadWeights()
 AI2.loadWeights()
 
+testMode = False
+
+if testMode:
+    AI1.epsilon = 0
+    AI2.epsilon = 0
+
+lastTotalScore = [0,0]
+currentScore = [0,0]
+    
 # LOOP
 def step():
     # paddles
@@ -9,7 +18,7 @@ def step():
     paddle2.move()
 
     # Ball
-    ball.collideBounds(AI1,AI2)
+    ball.collideBounds(AI)
     ball.collidePaddles()
     ball.move()
 
@@ -18,13 +27,13 @@ while not EXIT:
     for event in pg.event.get():
         if event.type == pg.QUIT or pg.key.get_pressed()[pg.K_ESCAPE]:
             EXIT = True
-            AI1.saveWeights()
-            AI2.saveWeights()
-            print("Weights saved")
+            if not testMode:
+                AI1.saveWeights()
+                AI2.saveWeights()
+                print("Weights saved")
     if EXIT:
         break
-        
-
+    
 
     # AIs load state
     AI1.loadState()
@@ -39,9 +48,21 @@ while not EXIT:
     step()
     steps += 1
 
+    ## Track score
+    if AI.isTerminal:
+        terminalCount += 1
+        if terminalCount % 10 == 0:
+            currentScore = [player1.score - lastTotalScore[0], player2.score - lastTotalScore[1]]
+            
+            with open(f"New Pong/Models/{modelName}/stats.csv", "a", newline="") as file:
+                csv.writer(file).writerow([steps,terminalCount,currentScore])
+
+            lastTotalScore = [player1.score, player2.score]
+
     # AIs update Batch
-    AI1.updateBatch(AI1.getAction())
-    AI2.updateBatch(AI2.getAction())
+    if not testMode:
+        AI1.updateBatch(AI1.getAction())
+        AI2.updateBatch(AI2.getAction())
 
     # Draw background (and clear screen)
     app.fill(backgroundColor)
@@ -51,9 +72,14 @@ while not EXIT:
     paddle2.draw()
     ball.draw()
 
-    if steps % 10 == 0:
+    # print(AI1.state)
+
+    
+
+    # Update and save weights
+    if steps % 10 == 0 and not testMode:
         AI1.updateWeights()
-        AI2.updateWeights()
+        AI2.updateWeights() 
 
         if steps % 10000 == 0:
             AI1.saveWeights()
@@ -61,25 +87,4 @@ while not EXIT:
             print(f"step {steps}: Weights saved, epsilon: {AI1.epsilon}")
 
     # Misc
-    # Render?
-    if pg.key.get_pressed()[pg.K_k]:
-        if not kPressed:
-            kPressed = True
-            if rendering: rendering = False
-            else: rendering = True
-    else:
-        kPressed = False
-        
-    if rendering:
-        pg.display.update()
-        pg.time.Clock().tick(120)
-
-    # Reset?
-    if pg.key.get_pressed()[pg.K_r]:
-        if not rPressed:
-            rPressed = True
-            paddle1.reset()
-            paddle2.reset()
-            ball.reset()
-    else:
-        rPressed = False
+    controlAndReset(pg.key.get_pressed()[pg.K_k],pg.key.get_pressed()[pg.K_r],ball,paddle1,paddle2,steps)
