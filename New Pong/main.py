@@ -27,10 +27,6 @@ while not EXIT:
     for event in pg.event.get():
         if event.type == pg.QUIT or pg.key.get_pressed()[pg.K_ESCAPE]:
             EXIT = True
-            if not testMode:
-                AI1.saveWeights()
-                AI2.saveWeights()
-                print("Weights saved")
     if EXIT:
         break
     
@@ -71,7 +67,6 @@ while not EXIT:
     paddle1.draw()
     paddle2.draw()
     ball.draw()
-    
 
     # Update and save weights
     if steps % 10 == 0 and not testMode:
@@ -81,7 +76,7 @@ while not EXIT:
         if steps % 10000 == 0:
             AI1.saveWeights()
             AI2.saveWeights()
-            print(f"step {steps}: Weights saved, epsilon: {AI1.epsilon}")
+            print(f"step {steps}, game {terminalCount} : Weights saved, epsilon: {AI1.epsilon}")
 
     # Misc
     controlAndReset(pg.key.get_pressed()[pg.K_k],pg.key.get_pressed()[pg.K_r],ball,paddle1,paddle2,steps)

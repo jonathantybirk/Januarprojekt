@@ -26,7 +26,7 @@ loss_fn = torch.nn.MSELoss(reduction='sum')
 # Define model
 model=Model()
 
-modelName = "Alpha"
+modelName = "Distance-penalty"
 
 class AI:
     isTerminal = 0
@@ -41,9 +41,9 @@ class AI:
         self.paddles = {"1": paddle1, "2": paddle2}
 
         #Randomness factor
-        self.epsilon = 0.99
+        self.epsilon = 0.5
         self.epsilon_decay = 0.0000001
-        self.minimum_epsilon = 0.2
+        self.minimum_epsilon = 0.1
 
         self.model = Model()
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=learning_rate)
@@ -67,7 +67,7 @@ class AI:
 
     def getAction(self):
         if self.epsilon > self.minimum_epsilon:
-            self.epsilon -= self.epsilon_decay
+            self.epsilon -= self.epsilon_decay / 2
 
         if random.uniform(0,1) < self.epsilon:
 
