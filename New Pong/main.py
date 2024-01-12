@@ -8,8 +8,26 @@ if testMode:
     AI1.epsilon = 0
     AI2.epsilon = 0
 
+# stats
 lastTotalScore = [0,0]
 currentScore = [0,0]
+currentScores = deque(maxlen = 100)
+
+# init info
+print()
+print(f"TEST MODE: {testMode}")
+print(f"epsilon:")
+print(f"    init: {AI1.epsilon}")
+if not testMode:
+    print(f"    decay: {AI1.epsilon_decay}")
+    print(f"    min: {AI1.minimum_epsilon}")
+print("model:")
+print(f"    name: {modelName}")
+print(f"    batch size: {AI1.batchMaxLength}")
+print(f"    minibatch size: {N}")
+print(f"    neurons: {H}")
+if testMode: print("WARNING, TEST MODE IS ON")
+print()
 
 # LOOP
 def step():
@@ -51,6 +69,15 @@ while not EXIT:
         currentScore = [player1.score - lastTotalScore[0], player2.score - lastTotalScore[1]]
         lastTotalScore = [player1.score, player2.score]
 
+        currentScores.append(currentScore)
+
+        if terminalCount % 100 == 0:
+            totalScores = [0,0]
+            for score in currentScores:
+                totalScores[0] += score[0]
+                totalScores[1] += score[1]
+            avgScores = [totalScores[0] / 100, totalScores[1] / 100]
+
         if terminalCount % 1000 == 0:
             with open(f"New Pong/Models/{modelName}/stats.csv", "a", newline="") as file:
                 csv.writer(file).writerow([steps,terminalCount,currentScore])
@@ -76,7 +103,7 @@ while not EXIT:
         if steps % 10000 == 0:
             AI1.saveWeights()
             AI2.saveWeights()
-            print(f"step {steps}, game {terminalCount} : Weights saved, epsilon: {AI1.epsilon}")
+            print(f"step {steps}, game {terminalCount} : Weights saved, epsilon: {AI1.epsilon}, avg score: {avgScores}")
 
     # Misc
     controlAndReset(pg.key.get_pressed()[pg.K_k],pg.key.get_pressed()[pg.K_r],ball,paddle1,paddle2,steps)
