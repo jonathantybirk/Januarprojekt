@@ -40,9 +40,9 @@ class AI:
         self.players = {"1": player1, "2": player2}
         self.paddles = {"1": paddle1, "2": paddle2}
 
-        #Randomness factor
-        self.epsilon = 0.5
-        self.epsilon_decay = 0.0000001
+        #Randomness factors
+        self.epsilon = 0.3
+        self.epsilon_decay = 0.0000000
         self.minimum_epsilon = 0.1
 
         self.model = Model()

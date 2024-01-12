@@ -10,7 +10,7 @@ if testMode:
 
 lastTotalScore = [0,0]
 currentScore = [0,0]
-    
+
 # LOOP
 def step():
     # paddles
@@ -71,7 +71,7 @@ while not EXIT:
     # Update and save weights
     if steps % 10 == 0 and not testMode:
         AI1.updateWeights()
-        AI2.updateWeights() 
+        AI2.updateWeights()
 
         if steps % 10000 == 0:
             AI1.saveWeights()
