@@ -27,7 +27,7 @@ EXIT = False
 steps = 0
 terminalCount = 0
 
-doRender, kPressed, rPressed = True, False, False
+doRender, kPressed, rPressed = False, False, False
 
 
 def controlAndReset(k,r,ball,paddle1,paddle2,steps):

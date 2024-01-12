@@ -7,6 +7,7 @@ testMode = False
 if testMode:
     AI1.epsilon = 0
     AI2.epsilon = 0
+    doRender = True
 
 # stats
 lastTotalScore = [0,0]

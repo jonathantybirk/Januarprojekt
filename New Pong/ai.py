@@ -12,7 +12,7 @@ class Model(torch.nn.Module):
         super(Model, self).__init__()
         self.lin1=torch.nn.Linear(D_in,H)
         self.activation=torch.nn.ReLU()
-        self.lin2=torch.nn.Linear(H,H)
+        self.lin2=torch.nn.Linear(H,D_out)
 
     def forward(self, x):
         x = self.lin1(x) 
@@ -43,7 +43,7 @@ class AI:
 
         #Randomness factors
         self.epsilon = 1.0
-        self.epsilon_decay = 0.00000001
+        self.epsilon_decay = 0.0000001
         self.minimum_epsilon = 0.1
 
         self.model = Model()
