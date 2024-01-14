@@ -2,9 +2,8 @@ from ball import *
 
 ## Variables
 learning_rate=1e-4
-N,D_in,H,D_out=150,6,200,3
+N,D_in,H,D_out=50,6,100,3
 gamma=0.99
-lr=.01
 
 # Define model
 class Model(torch.nn.Module):
@@ -24,7 +23,6 @@ class Model(torch.nn.Module):
 loss_fn = torch.nn.MSELoss(reduction='sum')
 
 # Define model
-model=Model()
 
 modelName = "Distance-penalty"
 
@@ -43,12 +41,11 @@ class AI:
 
         #Randomness factors
         self.epsilon = 1.0
-        self.epsilon_decay = 0.0000001
+        self.epsilon_decay = 0.00000001
         self.minimum_epsilon = 0.1
 
         self.model = Model()
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=learning_rate)
-
 
         self.weightPath = f"New Pong/Models/{modelName}/{self.id}.pt"
 
@@ -122,7 +119,7 @@ class AI:
                 # Get the next-states from minibatch
                 newStates = minibatch[:,8:14]
                 # Get model prediction from next-states
-                modelOutput_newstates = model(newStates)
+                modelOutput_newstates = self.model(newStates)
                 # Get the "correct" action by taking max of each row
                 modelOutput_newstates_sorted = torch.max(modelOutput_newstates,dim=1).values
                 # Reshape max-sorted output to (N,1)

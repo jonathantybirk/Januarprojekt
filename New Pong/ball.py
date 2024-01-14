@@ -49,7 +49,7 @@ class Ball:
         if self.pos[0] + self.dim[0] / 2 >= paddle1.pos[0] - Paddle.dim[0] / 2 and self.pos[0] - self.dim[0] / 2 <= paddle1.pos[0] + Paddle.dim[0] / 2:
 
             distancePenalty1 = ((ball.pos[1] - paddle1.pos[1]) / appDim[1]) ** 2
-            player1.updateScore("add", -distancePenalty1 * 0.1)
+            player1.updateScore("add", -distancePenalty1)
 
             if self.pos[1] + self.dim[1] / 2 >= paddle1.pos[1] - Paddle.dim[1] / 2 and self.pos[1] - self.dim[1] / 2 <= paddle1.pos[1] + Paddle.dim[1] / 2:
                 
@@ -65,7 +65,7 @@ class Ball:
         elif self.pos[0] + self.dim[0] / 2 >= paddle2.pos[0] - Paddle.dim[0] / 2 and self.pos[0] - self.dim[0] / 2 <= paddle2.pos[0] + Paddle.dim[0] / 2:
 
             distancePenalty2 = ((ball.pos[1] - paddle2.pos[1]) / appDim[1]) ** 2
-            player2.updateScore("add", -distancePenalty2 * 0.1)
+            player2.updateScore("add", -distancePenalty2)
 
             if self.pos[1] + self.dim[1] / 2 >= paddle2.pos[1] - Paddle.dim[1] / 2 and self.pos[1] - self.dim[1] / 2 <= paddle2.pos[1] + Paddle.dim[1] / 2:
                 

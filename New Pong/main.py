@@ -2,17 +2,17 @@ from ai import *
 AI1.loadWeights()
 AI2.loadWeights()
 
-testMode = False
+testMode = True
 
 if testMode:
     AI1.epsilon = 0
     AI2.epsilon = 0
-    doRender = True
-
+    
 # stats
 lastTotalScore = [0,0]
 currentScore = [0,0]
-currentScores = deque(maxlen = 100)
+currentScores = deque(maxlen = 1000)
+avgScores = [0,0]
 
 # init info
 print()
@@ -46,6 +46,8 @@ while not EXIT:
     for event in pg.event.get():
         if event.type == pg.QUIT or pg.key.get_pressed()[pg.K_ESCAPE]:
             EXIT = True
+            with open(f"New Pong/Models/{modelName}/stats.csv", "a", newline="") as file:
+                csv.writer(file).writerow("")
     if EXIT:
         break
     
@@ -77,7 +79,7 @@ while not EXIT:
             for score in currentScores:
                 totalScores[0] += score[0]
                 totalScores[1] += score[1]
-            avgScores = [totalScores[0] / 100, totalScores[1] / 100]
+            avgScores = [totalScores[0] / 1000, totalScores[1] / 1000]
 
         if terminalCount % 1000 == 0:
             with open(f"New Pong/Models/{modelName}/stats.csv", "a", newline="") as file:
@@ -95,7 +97,7 @@ while not EXIT:
     paddle1.draw()
     paddle2.draw()
     ball.draw()
-
+ 
     # Update and save weights
     if steps % 10 == 0 and not testMode:
         AI1.updateWeights()
