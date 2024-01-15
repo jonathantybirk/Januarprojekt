@@ -24,7 +24,7 @@ loss_fn = torch.nn.MSELoss(reduction='sum')
 
 # Define model
 
-modelName = "Distance-penalty"
+modelName = "Base_model"
 
 class AI:
     isTerminal = 0
@@ -40,9 +40,9 @@ class AI:
         self.paddles = {"1": paddle1, "2": paddle2}
 
         #Randomness factors
-        self.epsilon = 1.0
+        self.epsilon = 0.3
         self.epsilon_decay = 0.00000001
-        self.minimum_epsilon = 0.1
+        self.minimum_epsilon = 0.0
 
         self.model = Model()
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=learning_rate)

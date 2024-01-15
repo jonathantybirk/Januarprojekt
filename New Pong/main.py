@@ -2,7 +2,7 @@ from ai import *
 AI1.loadWeights()
 AI2.loadWeights()
 
-testMode = True
+testMode = False
 
 if testMode:
     AI1.epsilon = 0
@@ -56,7 +56,6 @@ while not EXIT:
     AI1.loadState()
     AI2.loadState()
 
-
     # Get NN to provide action or take random action
     paddle1.movement = AI1.getAction()
     paddle2.movement = AI2.getAction()
@@ -81,7 +80,7 @@ while not EXIT:
                 totalScores[1] += score[1]
             avgScores = [totalScores[0] / 1000, totalScores[1] / 1000]
 
-        if terminalCount % 1000 == 0:
+        if terminalCount % 100 == 0:
             with open(f"New Pong/Models/{modelName}/stats.csv", "a", newline="") as file:
                 csv.writer(file).writerow([steps,terminalCount,currentScore])
 

@@ -29,7 +29,6 @@ terminalCount = 0
 
 doRender, kPressed, rPressed = False, False, False
 
-
 def controlAndReset(k,r,ball,paddle1,paddle2,steps):
     global doRender, kPressed, rPressed
     if k:
@@ -42,7 +41,7 @@ def controlAndReset(k,r,ball,paddle1,paddle2,steps):
         
     if doRender:
         pg.display.update()
-        pg.time.Clock().tick(40)
+        pg.time.Clock().tick(120)
 
     # Reset?
     if r:

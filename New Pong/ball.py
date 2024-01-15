@@ -2,8 +2,9 @@ from paddles import *
 
 class Ball:
     def __init__(self):
-        self.initSpeed = 10.
-        self.speedUp = 0.1
+        self.initSpeed = 5
+        self.speedUp = 1
+        self.maxSpeed = 15
         self.initPos = [0,0]
 
         self.color = (255,255,255)
@@ -48,9 +49,6 @@ class Ball:
         # Left paddle
         if self.pos[0] + self.dim[0] / 2 >= paddle1.pos[0] - Paddle.dim[0] / 2 and self.pos[0] - self.dim[0] / 2 <= paddle1.pos[0] + Paddle.dim[0] / 2:
 
-            distancePenalty1 = ((ball.pos[1] - paddle1.pos[1]) / appDim[1]) ** 2
-            player1.updateScore("add", -distancePenalty1)
-
             if self.pos[1] + self.dim[1] / 2 >= paddle1.pos[1] - Paddle.dim[1] / 2 and self.pos[1] - self.dim[1] / 2 <= paddle1.pos[1] + Paddle.dim[1] / 2:
                 
                 self.pos[0] = paddle1.pos[0] + Paddle.dim[0] / 2 + self.dim[0]
@@ -58,14 +56,11 @@ class Ball:
                 collisionAngle = (math.pi / 3) * (self.pos[1] - paddle1.pos[1]) / ((Paddle.dim[1] + self.dim[1]) / 2)
                 self.direction = [math.cos(collisionAngle), math.sin(collisionAngle)]
                 
-                self.speed += self.speedUp
+                if self.speed < self.maxSpeed: self.speed += self.speedUp
                 player1.updateScore("add", 1)
 
         # Right paddle
         elif self.pos[0] + self.dim[0] / 2 >= paddle2.pos[0] - Paddle.dim[0] / 2 and self.pos[0] - self.dim[0] / 2 <= paddle2.pos[0] + Paddle.dim[0] / 2:
-
-            distancePenalty2 = ((ball.pos[1] - paddle2.pos[1]) / appDim[1]) ** 2
-            player2.updateScore("add", -distancePenalty2)
 
             if self.pos[1] + self.dim[1] / 2 >= paddle2.pos[1] - Paddle.dim[1] / 2 and self.pos[1] - self.dim[1] / 2 <= paddle2.pos[1] + Paddle.dim[1] / 2:
                 
@@ -74,7 +69,7 @@ class Ball:
                 collisionAngle = (math.pi / 3) * (self.pos[1] - paddle2.pos[1]) / ((Paddle.dim[1] + self.dim[1]) / 2)
                 self.direction = [-math.cos(collisionAngle), math.sin(collisionAngle)]
                 
-                self.speed += self.speedUp
+                if self.speed < self.maxSpeed: self.speed += self.speedUp
                 player2.updateScore("add", 1)
 
     def move(self):
