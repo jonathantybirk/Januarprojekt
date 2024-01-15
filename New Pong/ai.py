@@ -65,7 +65,7 @@ class AI:
 
     def getAction(self):
         if self.epsilon > self.minimum_epsilon:
-            self.epsilon -= self.epsilon_decay / 2
+            self.epsilon -= self.epsilon_decay
 
         if random.uniform(0,1) < self.epsilon:
 
