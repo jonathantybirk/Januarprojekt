@@ -86,8 +86,8 @@ while not EXIT:
 
     # AIs update Batch
     if not testMode:
-        AI1.updateBatch(AI1.getAction())
-        AI2.updateBatch(AI2.getAction())
+        AI1.updateBatch(paddle1.movement)
+        AI2.updateBatch(paddle2.movement)
 
     # Draw background (and clear screen)
     app.fill(backgroundColor)
