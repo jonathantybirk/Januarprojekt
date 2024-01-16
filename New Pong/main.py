@@ -7,7 +7,7 @@ testMode = False
 if testMode:
     AI1.epsilon = 0
     AI2.epsilon = 0
-    
+
 # stats
 lastTotalScore = [0,0]
 currentScore = [0,0]
@@ -27,8 +27,8 @@ print(f"    name: {modelName}")
 print(f"    batch size: {AI1.batchMaxLength}")
 print(f"    minibatch size: {N}")
 print(f"    neurons: {H}")
+print(f"device: {device}")
 if testMode: print("WARNING, TEST MODE IS ON")
-print()
 
 # LOOP
 def step():

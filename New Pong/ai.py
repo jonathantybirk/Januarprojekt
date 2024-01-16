@@ -5,6 +5,8 @@ learning_rate=1e-4
 N,D_in,H,D_out=50,6,100,3
 gamma=0.99
 
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
 # Define model
 class Model(torch.nn.Module):
     def __init__(self):
@@ -13,8 +15,9 @@ class Model(torch.nn.Module):
         self.activation=torch.nn.ReLU()
         self.lin2=torch.nn.Linear(H,D_out)
 
+
     def forward(self, x):
-        x = self.lin1(x) 
+        x = self.lin1(x)
         x = self.activation(x)
         x = self.lin2(x)
         return x
@@ -24,7 +27,7 @@ loss_fn = torch.nn.MSELoss(reduction='sum')
 
 # Define model
 
-modelName = "Base_model"
+modelName = "testmodel"
 
 class AI:
     isTerminal = 0
@@ -44,7 +47,7 @@ class AI:
         self.epsilon_decay = 0.00000001
         self.minimum_epsilon = 0.0
 
-        self.model = Model()
+        self.model = Model().to(device)
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=learning_rate)
 
         self.weightPath = f"New Pong/Models/{modelName}/{self.id}.pt"
@@ -72,7 +75,7 @@ class AI:
             return random.sample([-1,0,1],1)[0]
         
         else:
-            modelInput = torch.tensor(self.state)
+            modelInput = torch.tensor(self.state).to(device)
 
             return torch.argmax(self.model(modelInput)).item() - 1
         
@@ -92,7 +95,7 @@ class AI:
         
     def updateWeights(self):
         if self.batchSize > N:
-            minibatch = torch.tensor(random.sample(self.batch,N))
+            minibatch = torch.tensor(random.sample(self.batch,N)).to(device)
             states = minibatch[:,0:6]
             
             # Make sure rewards is (N,1)
@@ -107,7 +110,7 @@ class AI:
             # Reshape actions for later use in fancy indexing
             actions = actions.reshape(1,N)
             # Plus all values with one to make them indices instead of actions in game
-            actionsasindeces = torch.ones(1,N) + actions
+            actionsasindeces = torch.ones(1,N).to(device) + actions
             # Change to long data type to use as indeces
             actionsasindeces = actionsasindeces.long()
             # Use smart indexing to sort modeloutput to the actions it actually took
