@@ -2,7 +2,7 @@ The code, data, and report in this directory is the results of a 3-week group pr
 
 The report can be read in the file 'Report.pdf', linked here: ''link''
 
-In this report, we tested the ability of two Deep Q-learning models to cooporate with each other to keep a Pong game going. For four different model types, two instances controlling a paddle each were rewarded when specifically they hit the ball. As input, they all received the position of their own paddle as well as the position and velocity of the ball. The four models were as such:
+In this report, we tested the ability of two Deep Q-learning models to cooporate with each other to keep a Pong game going. For four different model types, two instances controlling a paddle each were rewarded when specifically they hit the ball. As input, the instances received the position of their own paddle as well as the position and velocity of the ball. The four models were as such:
 
 1. Blind-Base, as described above
 2. Blind-Nudge. as described above with an additional small reward when the other instance's paddle hits the ball.
