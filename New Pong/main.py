@@ -2,7 +2,7 @@ from ai import *
 AI1.loadWeights()
 AI2.loadWeights()
 
-testMode = False
+testMode = True
 
 if testMode:
     AI1.epsilon = 0
@@ -27,7 +27,6 @@ print(f"    name: {modelName}")
 print(f"    batch size: {AI1.batchMaxLength}")
 print(f"    minibatch size: {N}")
 print(f"    neurons: {H}")
-print(f"device: {device}")
 if testMode: print("WARNING, TEST MODE IS ON")
 
 # LOOP
@@ -50,7 +49,6 @@ while not EXIT:
                 csv.writer(file).writerow("")
     if EXIT:
         break
-    
 
     # AIs load state
     AI1.loadState()
@@ -78,9 +76,9 @@ while not EXIT:
             for score in currentScores:
                 totalScores[0] += score[0]
                 totalScores[1] += score[1]
-            avgScores = [totalScores[0] / 1000, totalScores[1] / 1000]
+            avgScores = [totalScores[0] / len(currentScores), totalScores[1] / len(currentScores)]
 
-        if terminalCount % 100 == 0:
+        if terminalCount % 1 == 0:
             with open(f"New Pong/Models/{modelName}/stats.csv", "a", newline="") as file:
                 csv.writer(file).writerow([steps,terminalCount,currentScore])
 

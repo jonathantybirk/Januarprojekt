@@ -7,9 +7,10 @@ import torch
 from collections import deque
 
 # Application
-# seed = 1
-# random.seed(seed)
-# torch.manual_seed(seed)
+seed = 42
+random.seed(seed)
+torch.manual_seed(seed)
+np.random.seed(seed)
 
 appDim = (1000, 700)
 

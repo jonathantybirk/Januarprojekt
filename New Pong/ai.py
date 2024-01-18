@@ -2,7 +2,7 @@ from ball import *
 
 ## Variables
 learning_rate=1e-4
-N,D_in,H,D_out=50,6,100,3
+N,D_in,H,D_out=150,6,150,3
 gamma=0.99
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -11,15 +11,17 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 class Model(torch.nn.Module):
     def __init__(self):
         super(Model, self).__init__()
-        self.lin1=torch.nn.Linear(D_in,H)
         self.activation=torch.nn.ReLU()
-        self.lin2=torch.nn.Linear(H,D_out)
-
+        self.lin1=torch.nn.Linear(D_in,H)
+        self.lin2=torch.nn.Linear(H,H)
+        self.lin3=torch.nn.Linear(H,D_out)
 
     def forward(self, x):
         x = self.lin1(x)
         x = self.activation(x)
         x = self.lin2(x)
+        x = self.activation(x)
+        x = self.lin3(x)
         return x
 
 # ## Define loss function
@@ -27,7 +29,7 @@ loss_fn = torch.nn.MSELoss(reduction='sum')
 
 # Define model
 
-modelName = "testmodel"
+modelName = "Sighted-nudge"
 
 class AI:
     isTerminal = 0
@@ -43,9 +45,9 @@ class AI:
         self.paddles = {"1": paddle1, "2": paddle2}
 
         #Randomness factors
-        self.epsilon = 0.3
-        self.epsilon_decay = 0.00000001
-        self.minimum_epsilon = 0.0
+        self.epsilon = 1.0
+        self.epsilon_decay = 0.01 * 1/10000
+        self.minimum_epsilon = 0.1
 
         self.model = Model().to(device)
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=learning_rate)

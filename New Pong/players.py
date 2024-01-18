@@ -22,8 +22,6 @@ class Player():
         elif mode == "add":
             self.score += amount
 
-        self.score = (amount if mode == "set" else self.score + amount)
-
         
 
 player1 = Player("1")
