@@ -35,7 +35,8 @@ In the Model class, the hidden layers can be specified. Under the Model class, t
 
 In the AI class, the 'self.epsilon' value can be chosen. This is the likelihood that the agent will take and record a random action instead of the top suggestion by the model Additionally, a decrease per game step and a minimum epsilon that i will not decrease under can be set.
 
-# Thanks for reading, we hope you find our projecect and research interesting. :)
+# That's it
+We hope you find our report and research interesting :)
 
 - Christoffer, Jonathan, and Viktor
 
