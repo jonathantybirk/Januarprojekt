@@ -1,4 +1,4 @@
-The code, data, and report in this directory is the results of a 3-week group project for the 02461 Introduction to Intelligens Systems first-year course for the BSc Artificial Intelligence and Data study line at DTU.
+The code, data, and report in this directory are the resultss of a 3-week group project for the 02461 Introduction to Intelligens Systems first-year course for the BSc Artificial Intelligence and Data study line at DTU.
 
 The report can be read in the file 'Report.pdf', linked here: ''link''
 
