@@ -10,7 +10,7 @@ We tested the ability of two Deep Q-learning models to cooporate with each other
 4. Sighted-Nudge, as described above with both the additional reward and the additional input
 
 # The code: an overview
-In this diretory, you will find two subfolders: "Old Pong", and "New Pong".
+In this directory, you will find two subfolders: "Old Pong", and "New Pong".
   Old Pong was our first try at a simple Pong Game. It is not relevant for our report.
 
 In the New Pong folder, the code for the game as well as training the models and collecting data can be found.
