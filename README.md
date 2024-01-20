@@ -31,7 +31,7 @@ Pressing 'K' on the keyboard toggles rendering and frame rate cap. Replacing 'pa
 
 
 # Training a model
-The inputs of the model can be customized in the relevant variables described in the first paragraph in the section above. In addition, the model parameters can be tweaked.
+The inputs of the model can be customized with the relevant variables described in the first paragraph in the section above. In addition, the model parameters can be tweaked.
 'N', 'D_in', 'H', 'D_out', respectively: The size of the minibatches, number of inputs, number of neurons in the hidden layers, number of outputs. These parameters are found just above the Model class.
 
 In the Model class, the hidden layers can be specified. Under the Model class, the specific loss-function used can be specified.
