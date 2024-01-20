@@ -27,7 +27,7 @@ A model can be tested by setting the variable testMode in main.py to True. In te
 
 In main.py, in the 'track score'-section, code for loading data to the data.csv file in the model folder can be found.
 
-Pressing 'K' on the keyboard toggles rendering and frame rate cap. Replacing 'paddle1.movement = AI1.getAction()' with 'paddle1.movement = player1.getAction()' and 'paddle2.movement = AI2.getAction()' with 'paddle1.movement = player2.getAction()' will allow the left and right paddles to be controlled with W / S and the up key/down key respectively to test the AI against yourself.
+Pressing 'K' on the keyboard toggles rendering and frame rate cap. Replacing 'paddle1.movement = AI1.getAction()' with 'paddle1.movement = player1.getAction()' and 'paddle2.movement = AI2.getAction()' with 'paddle2.movement = player2.getAction()' will allow the left and right paddles to be controlled with W / S and the up key/down key respectively to test the AI against yourself.
 
 
 # Training a model
